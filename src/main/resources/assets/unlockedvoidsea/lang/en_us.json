@@ -1,7 +1,15 @@
 {
   "unlockedvoidsea.config.dimension": "Dimension",
+  "unlockedvoidsea.config.dimension.tooltip": "The dimension to enable the void sea in (e.g., minecraft:overworld)",
   "unlockedvoidsea.config.startY": "Start Y",
+  "unlockedvoidsea.config.startY.tooltip": "The Y-level where the purple fog and buoyancy begin",
   "unlockedvoidsea.config.depthGradient": "Depth Gradient",
+  "unlockedvoidsea.config.depthGradient.tooltip": "How strong the buoyancy is. 1.0 is standard.",
   "unlockedvoidsea.config.drag": "Drag",
-  "unlockedvoidsea.config.priority": "Priority"
+  "unlockedvoidsea.config.drag.tooltip": "Multiplier for water-like resistance. 1.0 is standard.",
+  "unlockedvoidsea.config.priority": "Priority",
+  "unlockedvoidsea.config.priority.tooltip": "Higher priority overrides other void sea definitions for the same dimension.",
+  "unlockedvoidsea.configuration.title": "Unlocked Void Sea",
+  "unlockedvoidsea.configuration.section.unlockedvoidsea.server.toml": "Unlocked Void Sea Server Settings",
+  "unlockedvoidsea.configuration.section.unlockedvoidsea.server.toml.title": "Unlocked Void Sea Server Settings"
 }
