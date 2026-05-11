@@ -1,10 +1,9 @@
 # Unlocked Void Sea
 
-A simple utility mod that lets you use the "End Sea" physics from [Create: Aeronautics](https://modrinth.com/mod/create-simulated) in any dimension. It adds the buoyancy, movement resistance, and purple void fog to whatever dimension you specify (Overworld by default).
+A simple utility mod that lets you use the "End Sea" physics from [Create: Aeronautics](https://modrinth.com/mod/create-simulated) in any dimension. It adds the buoyancy, movement resistance, and floating void sea effect to whatever dimension you specify (Overworld by default).
 
 ### Features
-* Change the Y-level where the sea starts, the buoyancy strength, and the drag
-* Config changes take effect immediately
+* Change the Y-level where the sea starts, the dimension, the buoyancy strength, and the drag
 * If installed on the client, it uses a nice in-game menu (via Catnip/Ponder) for easy configurin
 
 ### Config
