@@ -1,34 +1,32 @@
 package com.tyrthurey.unlockedvoidsea;
 
+import net.createmod.catnip.config.ConfigBase;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class Config {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+public class Config extends ConfigBase {
 
-    public static final ModConfigSpec.ConfigValue<String> DIMENSION = BUILDER
-            .comment("The dimension to enable the void sea in (e.g., minecraft:overworld)")
-            .translation("unlockedvoidsea.config.dimension")
-            .define("dimension", "minecraft:overworld");
+    public final CValue<String, ModConfigSpec.ConfigValue<String>> DIMENSION = s("minecraft:overworld", "dimension", Comments.dimension);
+    public final ConfigFloat START_Y = f(-40.0f, -256.0f, 900.0f, "startY", Comments.startY);
+    public final ConfigFloat DEPTH_GRADIENT = f(1.0f, 0.0f, 10.0f, "depthGradient", Comments.depthGradient);
+    public final ConfigFloat DRAG = f(1.0f, 0.0f, 10.0f, "drag", Comments.drag);
+    public final ConfigInt PRIORITY = i(1000, 0, 10000, "priority", Comments.priority);
 
-    public static final ModConfigSpec.DoubleValue START_Y = BUILDER
-            .comment("The Y-level where the purple fog and buoyancy begin")
-            .translation("unlockedvoidsea.config.startY")
-            .defineInRange("startY", -40.0, -256.0, 320.0);
+    @Override
+    public String getName() {
+        return "server";
+    }
 
-    public static final ModConfigSpec.DoubleValue DEPTH_GRADIENT = BUILDER
-            .comment("How strong the buoyancy is. 1.0 is standard.")
-            .translation("unlockedvoidsea.config.depthGradient")
-            .defineInRange("depthGradient", 1.0, 0.0, 10.0);
+    protected <T> CValue<T, ModConfigSpec.ConfigValue<T>> s(T defaultValue, String name, String... comment) {
+        CValue<T, ModConfigSpec.ConfigValue<T>> value = new CValue<>(name, builder -> builder.define(name, defaultValue), comment);
+        allValues.add(value);
+        return value;
+    }
 
-    public static final ModConfigSpec.DoubleValue DRAG = BUILDER
-            .comment("Multiplier for water-like resistance. 1.0 is standard.")
-            .translation("unlockedvoidsea.config.drag")
-            .defineInRange("drag", 1.0, 0.0, 10.0);
-
-    public static final ModConfigSpec.IntValue PRIORITY = BUILDER
-            .comment("Higher priority overrides other void sea definitions for the same dimension.")
-            .translation("unlockedvoidsea.config.priority")
-            .defineInRange("priority", 1000, 0, 10000);
-
-    static final ModConfigSpec SPEC = BUILDER.build();
+    private static class Comments {
+        static String dimension = "The dimension to enable the void sea in (e.g., minecraft:overworld)";
+        static String startY = "The Y-level where the purple fog and buoyancy begin";
+        static String depthGradient = "How strong the buoyancy is. 1.0 is standard.";
+        static String drag = "Multiplier for water-like resistance. 1.0 is standard.";
+        static String priority = "Higher priority overrides other void sea definitions for the same dimension.";
+    }
 }

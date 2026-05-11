@@ -22,10 +22,12 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
@@ -37,8 +39,19 @@ import java.util.Optional;
 public class UnlockedVoidSea {
     public static final String MODID = "unlockedvoidsea";
     public static final Logger LOGGER = LogUtils.getLogger();
+    public static Config CONFIG;
 
     public UnlockedVoidSea(IEventBus modEventBus, ModContainer modContainer) {
+        // Build the spec using the ConfigBase logic
+        Pair<Config, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(builder -> {
+            Config config = new Config();
+            config.registerAll(builder);
+            return config;
+        });
+
+        CONFIG = specPair.getLeft();
+        CONFIG.specification = specPair.getRight();
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onConfigEvent);
@@ -49,7 +62,7 @@ public class UnlockedVoidSea {
         NeoForge.EVENT_BUS.register(this);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
-        modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.SERVER, CONFIG.specification);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -74,15 +87,15 @@ public class UnlockedVoidSea {
     }
 
     private void injectVoidSea() {
-        ResourceLocation dimLoc = ResourceLocation.parse(Config.DIMENSION.get());
+        ResourceLocation dimLoc = ResourceLocation.parse(CONFIG.DIMENSION.get());
         ResourceKey<Level> dimKey = ResourceKey.create(Registries.DIMENSION, dimLoc);
 
         EndSeaPhysics configPhysics = new EndSeaPhysics(
                 dimLoc,
-                Optional.of(Config.PRIORITY.get()),
-                Config.START_Y.get(),
-                Config.DEPTH_GRADIENT.get(),
-                Config.DRAG.get()
+                Optional.of(CONFIG.PRIORITY.get()),
+                (double) CONFIG.START_Y.getF(),
+                (double) CONFIG.DEPTH_GRADIENT.getF(),
+                (double) CONFIG.DRAG.getF()
         );
 
         // Force update the physics map via reflection to bypass Simulated's priority check

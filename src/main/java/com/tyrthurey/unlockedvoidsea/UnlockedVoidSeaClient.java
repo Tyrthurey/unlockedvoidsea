@@ -1,5 +1,6 @@
 package com.tyrthurey.unlockedvoidsea;
 
+import net.createmod.catnip.config.ui.BaseConfigScreen;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -7,7 +8,6 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
@@ -18,8 +18,10 @@ public class UnlockedVoidSeaClient {
     public UnlockedVoidSeaClient(ModContainer container) {
         // Allows NeoForge to create a config screen for this mod's configs.
         // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.
-        // Do not forget to add translations for your config options to the en_us.json file.
-        container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        // We use Catnip's BaseConfigScreen for a Create-style configuration menu.
+        container.registerExtensionPoint(IConfigScreenFactory.class,
+                (modContainer, lastScreen) -> new BaseConfigScreen(lastScreen, UnlockedVoidSea.MODID)
+        );
     }
 
     @SubscribeEvent
