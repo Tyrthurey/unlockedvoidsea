@@ -1,0 +1,13 @@
+{
+  "itemGroup.unlockedvoidsea": "Example Mod Tab",
+  "block.unlockedvoidsea.example_block": "Example Block",
+  "item.unlockedvoidsea.example_item": "Example Item",
+
+  "unlockedvoidsea.configuration.title": "Unlocked Void Sea Configs",
+  "unlockedvoidsea.configuration.section.unlockedvoidsea.common.toml": "Unlocked Void Sea Configs",
+  "unlockedvoidsea.configuration.section.unlockedvoidsea.common.toml.title": "Unlocked Void Sea Configs",
+  "unlockedvoidsea.configuration.items": "Item List",
+  "unlockedvoidsea.configuration.logDirtBlock": "Log Dirt Block",
+  "unlockedvoidsea.configuration.magicNumberIntroduction": "Magic Number Text",
+  "unlockedvoidsea.configuration.magicNumber": "Magic Number"
+}
